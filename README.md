@@ -24,7 +24,7 @@ A **DeepWiki** has been created for **T-962-improvements** that may help with un
 	
   - LCD menu structure for profile editing and restoring firmware default values
   
-  - T962 controller (NXP LPC2134) pin remapping to use OLIMEX Development Board (LPC-P2148)
+  - T962 controller (NXP LPC2134) pin remapping to use OLIMEX Development Board (LPC-P2148).  Develop code and using PlatformIO (VS Code), local source files have been modified for successful compile using the **maxgerhardt/T-962-improvements** repo on github.
 
 **Image Files** – Some firmware Image files were edited to conform with new menu structures. File names were revised to show different version of originals.  Files were edited using MS Paint and saved as **Monochrome Bitmap BMP** (128x64px, 18x64px, or 18x16px) files. 
 
@@ -34,11 +34,11 @@ A **DeepWiki** has been created for **T-962-improvements** that may help with un
 
 With the current **T-962-improvements** firmware, the boot up sequence first loads from EEPROM and checks the firmware version (**NVMAGIC**), then loads from **EEPROM**, the Setup/Calibration settings and last selected profile, and then loads from **EEPROM** the Custom profiles into RAM ( **ramprofiles ee1** & **ee2**).  With profiles instead being stored as parameters, the RAM size requirements should be reduced. Since only one reflow profile can be selected at any time, it is unnecessary to load from EEPROM or re-construction all reflow profiles.  More **EEPROM** reads would only be necessary when a different profile is selected.  Since **I2C EEPROM** reads are generally slow, boot time should be improved.
 
-
+Development on PlatformIO IDE compiles for **LPC-2134** in a HEX file, which is then flashed to the delopment board using a flashing programmer called **Flash Magic**.  **Flash Magic** reports a conflict between the **LPC2134** hex file and the target controller (**LPC2148**), however user can complete the flashing process with **Flash Magic**'s “ignore” prompt.
 
 ## Development Approach
 
-1.	Develop code and using **PlatformIO (VS Code)**, local source files have been modified for successful compile using **maxgerhardt/T-962-improvements** repo fork on github.
+1.	Develop code and using **PlatformIO (VS Code)** IDE on local source files. This IDE has been modified for successful compile using **maxgerhardt/T-962-improvements** repo fork on github.  Multiple branches in the forked github repo here are anticipated. These branches will be to allow adding and later subtracting code features associated only with PlatformIO IDE (**maxgerhardt/T-962-improvements**) and the LPC-P2148 development board (pin re-mapping).  A “final branch” in this forked repo will allow for a clean Pull Request to the **UnifiedEngineering/T-962-improvements** repo.
 
 2.	Develop code for conversion of program memory from profiles based on time/temperature dataset, to profile parameters using different C library structures.  It may be more efficient to calculate the selected profile time/temperatures dataset and store in RAM memory, than to calculate upon selecting the “Select Profile” or “Run Profile” main menu options.
 
