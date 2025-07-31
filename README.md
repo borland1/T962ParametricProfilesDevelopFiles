@@ -36,11 +36,11 @@ With the current **T-962-improvements** firmware, the boot up sequence first loa
 
 Development on PlatformIO IDE compiles for **LPC-2134** in a HEX file, which is then flashed to the delopment board using a flashing programmer called **Flash Magic**.  **Flash Magic** reports a conflict between the **LPC2134** hex file and the target controller (**LPC2148**), however user can complete the flashing process with **Flash Magic**'s “ignore” prompt.
 
-Develop code and using **PlatformIO (VS Code)**, on local source files required modifing for successful compile using the **maxgerhardt/T-962-improvements** repo on github.
+Developing code on **PlatformIO (VS Code)** IDE, on local source files, required modifing for successful compile using the **maxgerhardt/T-962-improvements** repo on github.
 
 ## Development Approach
 
-1.	Develop code and using **PlatformIO (VS Code)** IDE on local source files. This IDE has been modified for successful compile using **maxgerhardt/T-962-improvements** repo fork on github.  Multiple branches in the forked github repo here are anticipated. These branches will be to allow adding and later subtracting code features associated only with PlatformIO IDE (**maxgerhardt/T-962-improvements**) and the LPC-P2148 development board (pin re-mapping).  A “final branch” in this forked repo will allow for a clean Pull Request to the **UnifiedEngineering/T-962-improvements** repo.
+1.	Multiple branches in the forked github repo here are anticipated. These branches will be to allow adding, and later subtracting, code features only associated with PlatformIO IDE (**maxgerhardt/T-962-improvements**) and the LPC-P2148 development board (pin re-mapping).  A “final branch” in this forked repo will allow for a clean Pull Request to the **UnifiedEngineering/T-962-improvements** repo.
 
 2.	Develop code for conversion of program memory from profiles based on time/temperature dataset, to profile parameters using different C library structures.  It may be more efficient to calculate the selected profile time/temperatures dataset and store in RAM memory, than to calculate upon selecting the “Select Profile” or “Run Profile” main menu options.
 
