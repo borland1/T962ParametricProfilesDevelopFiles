@@ -24,7 +24,7 @@ A **DeepWiki** has been created for **T-962-improvements** that may help with un
 	
   - LCD menu structure for profile editing and restoring firmware default values
   
-  - T962 controller (NXP LPC2134) pin remapping to use OLIMEX Development Board (LPC-P2148).  Develop code and using PlatformIO (VS Code), local source files have been modified for successful compile using the **maxgerhardt/T-962-improvements** repo on github.
+  - T962 controller (NXP LPC2134) pin remapping (LCD Panel Push Buttons F1, F2, and F3 in Keypad.c file) to allow use OLIMEX Development Board (LPC-P2148) available I/O pins. Side Note: Develop code and using PlatformIO (VS Code), local source files have been modified for successful compile using the **maxgerhardt/T-962-improvements** repo on github.
 
 **Image Files** – Some firmware Image files were edited to conform with new menu structures. File names were revised to show different version of originals.  Files were edited using MS Paint and saved as **Monochrome Bitmap BMP** (128x64px, 18x64px, or 18x16px) files. 
 
