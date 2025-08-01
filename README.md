@@ -14,7 +14,7 @@ The onboard **EEPROM** used by the T962 reflow oven is IC p/n **24C02** and cons
 
 ## Supporting Files, Links, Documentation
 
-A **DeepWiki** - https://deepwiki.com/UnifiedEngineering/T-962-improvements - has been created for **T-962-improvements** that may help with understanding the existing code structure and organization. Here’s a link to the 
+A **DeepWiki** - https://deepwiki.com/UnifiedEngineering/T-962-improvements - has been created for **T-962-improvements** that may help with understanding the existing code structure and organization. Here’s a link to this wiki
  https://deepwiki.com/UnifiedEngineering/T-962-improvements
 
 **Arduino Sketch Files** – https://github.com/borland1/T962ParametricProfilesDevelopFiles/tree/main/Arduino - Two Arduino sketches were developed to code the structures of profile parameters, calculating the time/temperature dataset, and read/write parameters for each profile non-volatile storage in **EEPROM**.
