@@ -39,7 +39,7 @@ Developing code on **PlatformIO (VS Code)** IDE, on local source files, required
 
 ## Development Approach
 
-1.	Multiple branches in the forked github repo here https://github.com/borland1/T962ParametricProfilesDevelopFiles are anticipated. These branches will be to allow adding, and later subtracting, code features only associated with PlatformIO IDE (**maxgerhardt/T-962-improvements**) and the LPC-P2148 development board (pin re-mapping).  A “final branch” in this forked repo will allow for a clean Pull Request to the **UnifiedEngineering/T-962-improvements** repo.
+1.	Multiple branches in the forked github repo here https://github.com/borland1/T-962-improvements are anticipated. Multiple branches will allow adding, and later subtracting, code features only associated with PlatformIO IDE (**maxgerhardt/T-962-improvements**) and the LPC-P2148 development board (pin re-mapping).  A “final branch” in this forked repo will allow for a clean Pull Request to the **UnifiedEngineering/T-962-improvements** repo.
 
 2.	Develop code for conversion of program memory from profiles based on time/temperature dataset, to profile parameters using different C library structures.  It may be more efficient to calculate the selected profile time/temperatures dataset and store in RAM memory, than to calculate upon selecting the “Select Profile” or “Run Profile” main menu options.
 
