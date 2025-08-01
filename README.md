@@ -1,8 +1,10 @@
-A T962 Parametric Profiles Firmware Mod Project, Proof of Concept, Plan of Actions, and Other Support Files Archive
-
 ## Introduction
-This project’s goal is to provide a firmware modification to public domain project **UnifiedEngineering/T-962-improvements** github repo https://github.com/UnifiedEngineering/T-962-improvements, supporting a parametric based approach to creating and modifying PCB solder reflow profiles.  When completed,  the user should be capable of more easily adjusting all reflow profiles, phases, and shapes. This ability would allow for compensating variations in circuit board reflow requirements, including PCB thermal inertia, flux activation dwell times, and variations in solder flow characteristics.
 
+This repo only provides supporting information for repro project https://github.com/borland1/T-962-improvements, with a goal to integrate parametric reflow profile control features into the LPC2134 based firmware, replacing profiles in the form of a time/temperature datasets, with parameters that generated reflow profiles, and that allows a user to easily modify reflow profile shapes.
+
+Early development included proof-of-concept development in the form of MS Excel spreadsheets, Arduino code development. Related files are provided here as background information. Additionally, project constraints and Plan of Actions are also discussed in this archive.
+
+This project concerns a modification to earlier project repro **UnifiedEngineering/T-962-improvements** on github [github.com/UnifiedEngineering/T-962-improvements](https://github.com/UnifiedEngineering/T-962-improvements), supporting a parametric based approach to creating and modifying PCB solder reflow profiles.  When completed,  the user should be capable of more easily adjusting all reflow profiles, phases, and shapes. This ability would allow for compensating variations in circuit board reflow requirements, including PCB thermal inertia, flux activation dwell times, and variations in solder flow characteristics. 
 
 
 ## Existing Considerations
