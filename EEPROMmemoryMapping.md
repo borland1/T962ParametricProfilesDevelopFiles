@@ -58,3 +58,43 @@ which expects specific magic byte patterns for profile validation.
 The NV storage system uses only 28 bytes total, with 3 bytes for housekeeping (magic + count)
 
 and space for up to 25 configuration items.
+__________________________________________________________________________
+
+
+# Magic Number Validation 
+
+The magic bytes in the T-962's custom profiles provide a validation mechanism to ensure profile data integrity
+and maintain compatibility with the original firmware .
+
+## Magic Byte Validation System
+The custom profiles use a specific magic byte pattern for validation t962.h:58-59 . Each profile requires:
+
+- Start magic bytes: 0x56, 0x57 at the beginning of each profile
+- End magic bytes: 0x58, 0x59 at the end of each profile
+
+## Profile Memory Layout with Magic Bytes
+
+## Custom Profile #1 (addresses 0x00-0x61):
+
+- 0x00-0x01: Magic bytes 0x56, 0x57
+- 0x02-0x61: 48 temperature setpoints (96 bytes)
+
+## Custom Profile #2 (addresses 0x7E-0xFF):
+
+- 0x80-0x81: Magic bytes 0x56, 0x57
+- 0x82-0xE1: 48 temperature setpoints (96 bytes)
+- 0xFE-0xFF: Magic bytes 0x58, 0x59
+
+## Validation Purpose
+The magic bytes serve multiple purposes t962.h:58-63 :
+
+1. Profile Recognition: The original T-962 software checks for these specific byte patterns to recognize valid custom profiles
+2. Data Integrity: Ensures the EEPROM contains valid profile data rather than random or corrupted values
+3. Backward Compatibility: Maintains compatibility with the original firmware's profile validation logic
+
+## Profile Loading Process
+When the system loads custom profiles, it reads the EEPROM data and performs byte-swapping from big-endian format reflow_profiles.c:98-104 .
+The magic bytes are part of this data structure and would be validated by any firmware checking for proper profile format.
+
+## Notes
+The magic byte validation is a legacy requirement from the original T-962 firmware design. While the improved firmware loads profiles regardless, maintaining this format ensures compatibility and provides a basic integrity check for the stored temperature profile data.
