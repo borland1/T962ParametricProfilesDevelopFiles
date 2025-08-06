@@ -1,7 +1,7 @@
 EEPROM Space Allocation Computations
 
 --- Memory Dump ---
-Notes: 24LC02 I2C EEPROM Memory IC (1024 (2K bit) 256 bytes
+Notes: 24LC02 I2C EEPROM Memory IC 2048 bit ( 256 bytes )
 EEPROM, Serial Dump at 115,200 baud, using OLIMDX LCP-P2148 development board
 ------------------------------------------------------------
 With no user setup configurations or Custom Profiles entered, 
@@ -55,7 +55,7 @@ Settings/calibration dataset. Raw data is per:
                       		 \  \  \  \  \__REFLOW_BAKE_SETPOINT_H
                        		  \  \  \  \__REFLOW_BAKE_SETPOINT_L
 			           \  \  \__NVITEM_NUM_ITEMS
-			            \__\__Magic Numbers (J & W) 
+			            \__\__Magic Numbers (char J & W) 
 
 After selecting the Select/Edit menu, edits of CUSTOM#1
 and CUSTOM#2, which added some temps, yielded:
@@ -88,9 +88,9 @@ in 10 sec increments.
 
 Each Parameter Profile consists of:
   - name (19 bytes)
-  - 13 parameters 1 byte each( 13 bytes
+  - 13 parameters 1 byte each (13 bytes)
 
-for total of 32 bytes)
+for total of 32 bytes for each parameter profile.
 
 7 parameter profiles x 32 bytes/parameter profile = 224 bytes total 
 
@@ -100,6 +100,7 @@ Parameter Profile assignment addresses:
 
 addr - addr   item description
 ------------------------------------
+0x00 - 0x01   - 2 bytes unused
 0x03 - 0x21   profile 1
 0x22 - 0x42   profile 2
 0x42 - 0x62   profile 3
