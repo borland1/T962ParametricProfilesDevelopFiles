@@ -1,4 +1,4 @@
-EEPROM Allocation Space Computations
+EEPROM Space Allocation Computations
 
 --- Memory Dump ---
 Notes: 24LC02 I2C EEPROM Memory IC (1024 (2K bit) 256 bytes
