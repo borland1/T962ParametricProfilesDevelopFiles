@@ -40,7 +40,7 @@ This shows that Setup/calibration settings occupy 12 bytes
 of 256 bytes of total capacity. 256 bytes - 12 bytes = 244 bytes
 available for parameter profiles.
 
-Also, the NVMAGIC ( char J = 0x4a & char W = 0x57 ) are at
+Also, the defined NVMAGIC values ( ASCII character J = 0x4a & ASCII character W = 0x57 ) are at
 address 0x62 and 0x63, only at the beginning of the saved
 Settings/calibration dataset. Raw data is per:
 
