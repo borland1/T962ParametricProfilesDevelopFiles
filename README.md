@@ -29,6 +29,7 @@ A **DeepWiki** - https://deepwiki.com/UnifiedEngineering/T-962-improvements - ha
 
 **Image Files** – https://github.com/borland1/T962ParametricProfilesDevelopFiles/tree/main/Images - Some firmware Image files were edited to conform with new menu structures. File names were revised to show different version of originals.  Files were edited using MS Paint and saved as **Monochrome Bitmap BMP** (128x64px, 18x64px, or 18x16px) files. 
 
+**EEPROM Space Allocation file** - Provides an address space availability and layout of Setup/Calibration settings and Parameter Profiles.  
 
 
 ## Development Constraints
