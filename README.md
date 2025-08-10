@@ -21,13 +21,12 @@ A **DeepWiki** - https://deepwiki.com/UnifiedEngineering/T-962-improvements - ha
 **Arduino Sketch Files** – https://github.com/borland1/T962ParametricProfilesDevelopFiles/tree/main/Arduino - Two Arduino sketches were developed to code the structures of profile parameters, calculating the time/temperature dataset, and read/write parameters for each profile non-volatile storage in **EEPROM**.
 
 **Excel Files** – https://github.com/borland1/T962ParametricProfilesDevelopFiles/tree/main/MS%20Excel%20xlsx - Files detailing..
-  - Programmatic structure of reflow profile time/temperature dataset values using input parameter values,  
-	
-  - LCD menu structure for profile editing and restoring firmware default values
-  
+  - Programmatic structure of reflow profile time/temperature dataset values using input parameter values,
   - Details of T962 controller (NXP LPC2134) pin remapping (LCD Panel Push Buttons F1, F2, and F3 in Keypad.c file) to allow use OLIMEX Development Board (LPC-P2148) available I/O pins.
 
 **Image Files** – https://github.com/borland1/T962ParametricProfilesDevelopFiles/tree/main/Images - Some firmware Image files were edited to conform with new menu structures. File names were revised to show different version of originals.  Files were edited using MS Paint and saved as **Monochrome Bitmap BMP** (128x64px, 18x64px, or 18x16px) files. 
+
+**LCDparameterProfileMenusLayout.txt** - A LCD menu structure for profile editing and restoring firmware default values.
 
 **EEPROM Space Allocation file** - Provides an EEPROM address space availability and layout of Setup/Calibration settings and Parameter Profiles.  
 
