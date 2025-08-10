@@ -44,16 +44,16 @@ Also, the defined NVMAGIC values ( ASCII character J = 0x4a & ASCII character W 
 address 0x62 and 0x63, only at the beginning of the saved
 Settings/calibration dataset. Raw data is per:
 
-             0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
+0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
 			  \  \  \  \  \  \  \  \  \  \  \  \__REFLOW_BEEP_DONE
 			   \  \  \  \  \  \  \  \  \  \  \__REFLOW_PROFILE
 			    \  \  \  \  \  \  \  \  \  \__TC_LEFT_GAIN
 			     \  \  \  \  \  \  \  \  \__TC_LEFT_OFFSET
-       		              \  \  \  \  \  \  \  \__TC_RIGHT_GAIN
-                   	       \  \  \  \  \  \  \__TC_RIGHT_OFFSET
-                     	        \  \  \  \  \  \__REFLOW_MIN_FAN_SPEED
-                      		 \  \  \  \  \__REFLOW_BAKE_SETPOINT_H
-                       		  \  \  \  \__REFLOW_BAKE_SETPOINT_L
+				  \  \  \  \  \  \  \  \__TC_RIGHT_GAIN
+                   \  \  \  \  \  \  \__TC_RIGHT_OFFSET
+                    \  \  \  \  \  \__REFLOW_MIN_FAN_SPEED
+                   	 \  \  \  \  \__REFLOW_BAKE_SETPOINT_H
+                   	  \  \  \  \__REFLOW_BAKE_SETPOINT_L
 			           \  \  \__NVITEM_NUM_ITEMS
 			            \__\__NVMAGIC 
 
