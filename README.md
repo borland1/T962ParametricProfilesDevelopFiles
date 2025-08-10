@@ -28,7 +28,7 @@ A **DeepWiki** - https://deepwiki.com/UnifiedEngineering/T-962-improvements - ha
 
 **LCDparameterProfileMenusLayout.txt** - A LCD menu structure and layout for user profile parameter editing and restoring firmware default values.
 
-**EEPROM Space Allocation file** - Provides an EEPROM address space availability and layout of Setup/Calibration Settings and Parameter Profiles.  
+**EEPROM Space Allocation.txt** - Provides an EEPROM address space availability and layout of Setup/Calibration Settings and Parameter Profiles.  
 
 
 ## Development Constraints
