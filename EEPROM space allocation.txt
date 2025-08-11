@@ -100,7 +100,7 @@ Parameter Profile assignment addresses:
 
 addr - addr   item description
 ------------------------------------
-0x00 - 0x01   - 2 bytes unused, possible use as PPMAGIC, a first boot check for parameter profiles
+0x00 - 0x01   - 2 bytes unused, possible use to store PPMAGIC for use with Reflow_Init(), a parameter profiles check at bootup
 0x03 - 0x21   profile 1
 0x22 - 0x42   profile 2
 0x42 - 0x62   profile 3
