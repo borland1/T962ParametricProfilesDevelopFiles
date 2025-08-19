@@ -52,10 +52,10 @@ Settings/calibration dataset. Raw data is per:
 				  \  \  \  \  \  \  \  \__TC_RIGHT_GAIN
                    \  \  \  \  \  \  \__TC_RIGHT_OFFSET
                     \  \  \  \  \  \__REFLOW_MIN_FAN_SPEED
-                   	 \  \  \  \  \__REFLOW_BAKE_SETPOINT_H
-                   	  \  \  \  \__REFLOW_BAKE_SETPOINT_L
+                   	 \  \  \  \  \__REFLOW_BAKE_SETPOINT_H  0x66 MSB (uint16_t intsetpoint)
+                   	  \  \  \  \__REFLOW_BAKE_SETPOINT_L  0x65 LSB (uint16_t intsetpoint)
 			           \  \  \__NVITEM_NUM_ITEMS
-			            \__\__NVMAGIC 
+			            \__\__NVMAGIC (uint16_t) 0x62 LSB, 0x63 MSB
 
 After selecting the Select/Edit menu, edits of CUSTOM#1
 and CUSTOM#2, which added some temps, yielded:
