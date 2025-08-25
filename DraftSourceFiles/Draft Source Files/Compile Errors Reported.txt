@@ -1,0 +1,33 @@
+
+
+
+
+
+Processing lpc2134_01 (platform: nxplpc; board: lpc2134_01)
+-------------------------------------------------------------------------------Verbose mode can be enabled via `-v, --verbose` option
+Creating version.c file from git describe..
+Aborting creation of version.c since this project was not cloned via `git`...
+CONFIGURATION: https://docs.platformio.org/page/boards/nxplpc/lpc2134_01.html
+PLATFORM: NXP LPC (9.2.0) > NXP LPC2134/01
+HARDWARE: LPC2134 55MHz, 16KB RAM, 128KB Flash
+DEBUG: Current (cmsis-dap) On-board (cmsis-dap) External (blackmagic, jlink)   
+PACKAGES:
+ - toolchain-gccarmnoneeabi @ 1.80201.181220 (8.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio\build\lpc2134_01\src\reflow.o
+
+src\reflow.c: In function 'Reflow_Init':
+src\reflow.c:195:32: error: 'ee4' undeclared (first use in this function)
+  Reflow_readEE_profileParams( &ee4, &ee3 ); // *************
+                                ^~~
+src\reflow.c:195:32: note: each undeclared identifier is reported only once for each function it appears in
+src\reflow.c:195:38: error: 'ee3' undeclared (first use in this function)      
+  Reflow_readEE_profileParams( &ee4, &ee3 ); // *************
+                                      ^~~
+*** [.pio\build\lpc2134_01\src\reflow.o] Error 1
+========================= [FAILED] Took 2.18 seconds ==========
