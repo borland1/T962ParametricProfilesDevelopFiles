@@ -103,8 +103,8 @@ addr - addr   item description
 ------------------------------------
 0x00 - 0x01   PMAGIC - parameter profiles initialization flag
 0x03 - 0x21   profile 1
-0x22 - 0x42   profile 2
-0x42 - 0x62   profile 3
+0x22 - 0x41   profile 2
+0x42 - 0x61   profile 3
 0x62 - 0x6d   setup/calibration data
 0x6e - 0x6f   - 2 bytes unused
 0x70 - 0x8f   profile 4
