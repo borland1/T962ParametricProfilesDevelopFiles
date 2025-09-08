@@ -254,8 +254,8 @@ Vertical Scrolling Next (Down)
 	*******************************
 	*      EDIT PARAMETERS		  * <- line 0
 	*PREHEAT					  * <- line 1	1(+0)
-	* START TEMP(~)         [XXX] * <- line 2	2(+0)	<- CursorPos = 1	LinePos = 2(+0)	{1,2,3,4,5,6,7}
-	* DWELL TIME(SEC)       [XXX] * <- line 3	3(+0)										{-9,-12,-12,-12,-1,2-12,-12}
+	* START TEMP(~)         [XXX] * <- line 2	2(+0)	<- CursorPos = 1(-12) LinePos = 2(+0)	{1,2,3,4,5,6,7}
+	* DWELL TIME(SEC)       [XXX] * <- line 3	3(+0)											{-9,-12,-12,-12,-1,2-12,-12}
 	* HEAT RATE(~/SEC)	    [X.X] * <- line 4	4(+0)	
 	*SOAK						  * <- line 5	5(+0)
 	* START TEMP(~)	   	    [XXX] * <- line 6	6(+0)
@@ -509,6 +509,7 @@ Vertical Scrolling Previous (Up)  // ******************
 	*							  *
 	*[ < ][ > ][ - ][ + ] S[DONE] *
 	*******************************
+
 
 
 		
