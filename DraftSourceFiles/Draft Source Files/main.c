@@ -545,7 +545,7 @@ static int32_t Main_Work(void) {
 				++i; // ***************
 				y +=7; // ****************************
 				count +=3; // set count for after '\n' // *************
-				LCD_disp_str((uint8_t*)buf + count, len - count, 1, y, FONT6X6 | (cursorPos == i) ? INVERT : 0); // ***********
+				LCD_disp_str((uint8_t*)buf + count, len - count, 2, y, FONT6X6 | (cursorPos == i) ? INVERT : 0); // ***********
 				y +=7; // ****************************
 				++i; // ***************
 			}
