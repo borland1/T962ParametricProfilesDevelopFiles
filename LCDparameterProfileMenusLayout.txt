@@ -1,0 +1,457 @@
+Edit Profile Menus, LCD Text/Graphic Layout
+
+128x64px LCD Display - 7x5px Font Limits screen up to 9 horizontal spaced lines of 21 Characters Each
+
+-----------------------------------------------------------------------
+  Existing Menus
+-----------------------------------------------------------------------
+
+	Main Menus							Select Profile Menu
+	-----------------------------		---------------------------------
+	|F1|   ABOUT                |		| 							    |
+	|F2|   SETUP                |		|  Profile's NAME &			    |
+	|F3|   BAKE/MANUAL MODE 	|		|  Graphic Image	    |<F1    |
+	|F4|   SELECT/EDIT PROFILE  |------>|						|>F2    |
+	|S|    RUN REFLOW PROFILE   |		|						|F3 Edit|-----> to Menu 1
+	|   NAME, Selected Profile  |		|						|S - Sel|-----> back to Main Menu
+	| OVEN TEMPERATURE  23C     |		---------------------------------
+	-----------------------------		   mode == MAIN_SELECT_PROFILE
+		mode == MAIN_HOME					
+-------------------------------------------------------------------------
+  New Menus
+-------------------------------------------------------------------------
+
+			Menu 1, Edit Profile
+		---------------------------
+		|  EDIT PROFILE			  |	
+		|NAME, Selected Profile	  |
+		|F1|  EDIT PARAMETERS	  |
+		|F2|  EDIT NAME			  |
+		|F3|  RESTORE SELECTED'S  |
+		|		DEFAULTS		  |
+		|F4|  RETURN			  |---->back to Edit/Select Profile Menu
+		---------------------------
+		  mode == MAIN_EDIT_PROFILE
+
+
+
+	    Menu 2 Edit Parameters
+		---------------------------------
+		|EDIT PARAMETERS				|
+		| PREHEAT						|
+		|   START TEMP			  XXXC	|
+		|   DWELL TIME			  XXXS	|
+		|   HEAT RATE			  X.XC/S|
+		| SOAK							|
+		|   START TEMP			  XXXC	|
+		|   TARGET TEMP			  XXXC	| /\
+		|	DWELL TIME			  XXXS	| ||
+		|	HEAT RATE			  X.XC/S| ||Scroll up/down, LCD display max 9 horizontal text lines
+		| REFLOW						| ||
+		|   SOLDER MELT TEMP	  XXXC	| \/
+		|	SOLDER MELT OVERSHOOT   	|
+		|      DELTA			  XXXC	|
+		|   HEAT RATE			  X.XC/S|
+		|	DWELL TIME ABOVE		    |
+		|      MELT TEMP		  XXXS	|
+		| COOLDOWN						|
+		|	COOLDOWN RATE		  X.XC/S|
+		|	END TEMP	 		  XXXC	|  
+		|								|
+		|<F1, >F2, -F3, +F4, S(Done)|   |---> back to Menu 1
+		---------------------------------
+		mode == MAIN_EDIT_PROFILE_PARAMETERS
+
+
+		
+		Menu 3, Edit Profile Name
+		-------------------------------
+		|EDIT PROFILE NAME			  |
+		| 							  |
+		|							  |
+		|     XXXXXXXXXXXXXXXXXX      | ---> NAME, Selected Profile
+		|							  |
+		|							  |
+		|<F1, >F2,-F3,+F4, S(Done)	  | ---> back to Menu 1
+		-------------------------------
+		 mode == MAIN_EDIT_PROFILE_NAME
+
+
+
+		Menu 4, Restore Defaults
+		-----------------------------
+		| RESTORE DEFAULTS			|
+		|NAME, Selected Profile     |		
+		|							|
+		|F1|  CONFIRM RESTORE		|----> Back to Menu 1
+		|F2|  CANCEL				|----> Back to Menu 1
+		|							|
+		-----------------------------
+		 mode == MAIN_EDIT_PROFILE_RESTORE_DEFAULTS
+		
+		
+		
+		
+/ ************************************************************************
+LCD Display Space // *******************
+
+	LCD Screen Line x Character Size:
+	( 22 Characters x 8 lines)
+	plus 1 line reserved for keypad notation
+
+
+
+*********************************************
+Edit Parameters Menu
+*********************************************
+Lines, in order of appearance  // ********
+												
+     EDIT PARAMETERS	   // line 0
+PREHEAT	   		  	       // line 1	<- PREHEAT has 3 1-line parameters
+ START TEMP(~)      [XXX]C // line 2   
+ DWELL TIME(SEC)    [XXX]S // line 3
+ HEAT RATE(~/SEC) [X.X]C/S // line 4
+SOAK				  	   // line 5	<-SOAK has 4 1-line parameters
+ START TEMP	    	[XXX]C // line 6
+ TARGET TEMP	    [XXX]C // line 7
+ DWELL TIME		    [XXX]S // line 8
+ HEAT RATE    	  [X.X]C/S // line 9
+REFLOW					   // line 10	<- REFLOW has 2 1-line parameters, and 2 2-line parameters 
+ SOLDER MELT TEMP   [XXX]C // line 11
+ SOLDER MELT OVERSHOOT 	   // line 12
+   DELTA	         [XX]C // line 13
+ HEAT RATE		  [X.X]C/S // line 14
+ DWELL TIME ABOVE		   // line 15
+   MELT TEMP        [XXX]S // line 16
+COOLDOWN				   // line 17	<- COOLDOWN has 2 1-line parameters		
+ COOLDOWN RATE	  [X.X]C/S // line 18
+ END TEMP		    [XXX]C // line 19
+	
+// ************************************************************************
+		Initialize: int8_t cursorPos = 1  // cursor position (selected parameter to edit value)
+					int8_t linePos = 1  // line # at cursor position
+					int*_t lineIdx = 1; // line # (1-7) at top displayed list
+
+																				
+	   LCD Display Menu Render		   Line #,   cursorPos			linePos			lineIdx
+	*******************************	  --------   ------------- 		--------------	---------
+	*      EDIT PARAMETERS		  * <- line 0										  
+	*PREHEAT					  * <- line 1																						
+	* START TEMP	        [XXX]C* <- line 2	<- cursorPos = 1,	linePos = 2		lineIdx = 1
+	* DWELL TIME       		[XXX]S* <- line 3
+	* HEAT RATE	 	      [X.X]C/S * <- line 4
+	*SOAK						  * <- line 5													
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP		    [XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+Vertical Scrolling Next (Down)	****************
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0										  
+	*PREHEAT					  * <- line 1																						
+	* START TEMP(~)         [XXX]C* <- line 2
+	* DWELL TIME(SEC)       [XXX]S* <- line 3	<- cursorPos = 2	linePos = 3		lineIdx = 1
+	* HEAT RATE(~/SEC)	  [X.X]C/S* <- line 4	
+	*SOAK						  * <- line 5													
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP			[XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0										  
+	*PREHEAT					  * <- line 1																						
+	* START TEMP            [XXX]C* <- line 2
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE	    	  [X.X]C/S* <- line 4	<- cursorPos = 3	linePos = 4		lineIdx = 1
+	*SOAK						  * <- line 5													
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP			[XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6	<- cursorPos = 4	linePos = 6		lineIdx = 5
+	* TARGET TEMP			[XXX]C*	<- line 7
+	* DWELL TIME	        [XXX]S*	<- line 8
+	* HEAT RATE		      [X.X]C/S*	<- line 9
+	*REFLOW						  *	<- line 10 
+	* SOLDER MELT TEMP	    [XXX]C* <- line 11
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+	
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP      [XXX]C* <- line 11	<-  cursorPos = 8	linePos = 11	lineIdx = 10
+	* SOLDER MELT OVERSHOOT 	  *	<- line 12
+	*   DELTA	             [XX]C*	<- line 13
+	* HEAT RATE		      [X.X]C/S*	<- line 14
+	* DWELL TIME ABOVE		 	  *	<- line 15
+	*   MELT TEMP		    [XXX]S* <- line 16	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP   	[XXX]C* <- line 11
+	* SOLDER MELT OVERSHOOT 	  *	<- line 12
+	*   DELTA	            [XX]C *	<- line 13	<-  cursorPos = 9	linePos = 13	lineIdx = 10
+	* HEAT RATE		      [X.X]C/S*	<- line 14
+	* DWELL TIME ABOVE		 	  *	<- line 15
+	*   MELT TEMP	        [XXX]S* <- line 16	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*COOLDOWN					  *	<- line 17
+	* COOLDOWN RATE		  [X.X]C/S* <- line 18	<- cursorPos = 12		linePos = 18	lineIdx = 17
+	* END TEMP			    [XXX]C* <- line 19
+	*PREHEAT					  * <- line 1												
+	* START TEMP	        [XXX]C* <- line 2
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4
+	*SOAK						  *	<- line 5
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+	
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*COOLDOWN					  *	<- line 17
+	* COOLDOWN RATE		  [X.X]C/S* <- line 18
+	* END TEMP			    [XXX]C* <- line 19	<- cursorPos = 13		linePos = 19	lineIdx = 17
+	*PREHEAT					  * <- line 1												
+	* START TEMP            [XXX]C* <- line 2
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE	 	      [X.X]C/S* <- line 4
+	*SOAK						  *	<- line 5
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+	
+
+Wraping back to start 
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*PREHEAT					  * <- line 1
+	* START TEMP	        [XXX]C* <- line 2	<- cursorPos = 1		linePos = 2		lineIdx = 1
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4	
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP			[XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+-end - Vertical Scrolling Next (Down)
+
+
+
+Vertical Scrolling Previous (Up)  // ******************
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*COOLDOWN					  *	<- line 17
+	* COOLDOWN RATE 	  [X.X]C/S*	<- line 18
+	* END TEMP			    [XXX]C* <- line 19	<- cursorPos = 13	linePos = 19	lineIdx = 17
+	*PREHEAT					  * <- line 1
+	* START TEMP         	[XXX]C* <- line 2	
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*COOLDOWN					  *	<- line 17
+	* COOLDOWN RATE 	  [X.X]C/S*	<- line 18	<- cursorPos = 12	linePos = 18	lineIdx = 17
+	* END TEMP		  	    [XXX]C* <- line 19
+	*PREHEAT					  * <- line 1
+	* START TEMP	        [XXX]C* <- line 2	
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP   	[XXX]C* <- line 11	
+	* SOLDER MELT OVERSHOOT 	  *	<- line 12
+	*   DELTA	             [XX]C*	<- line 13
+	* HEAT RATE		      [X.X]C/S*	<- line 14
+	* DWELL TIME ABOVE		 	  *	<- line 15
+	*   MELT TEMP      		[XXX]S* <- line 16	<-  cursorPos = 11	linePos = 16		lineIdx = 10
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP	    [XXX]C* <- line 11	
+	* SOLDER MELT OVERSHOOT 	  *	<- line 12
+	*   DELTA	             [XX]C*	<- line 13
+	* HEAT RATE      	  [X.X]C/S*	<- line 14	<-  cursorPos = 10	linePos = 14		lineIdx = 10
+	* DWELL TIME ABOVE		 	  *	<- line 15
+	*   MELT TEMP		    [XXX]S* <- line 16	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP	    [XXX]C* <- line 11	<-  cursorPos = 8	linePos = 11		lineIdx = 10
+	* SOLDER MELT OVERSHOOT 	  *	<- line 12
+	*   DELTA	            [XX]C *	<- line 13
+	* HEAT RATE		      [X.X]C/S*	<- line 14
+	* DWELL TIME ABOVE		 	  *	<- line 15
+	*   MELT TEMP    	    [XXX]S* <- line 16	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6	
+	* TARGET TEMP		  	[XXX]C* <- line 7
+	* DWELL TIME	        [XXX]S* <- line 8
+	* HEAT RATE		      [X.X]C/S* <- line 9	<- cursorPos = 7	linePos = 9		lineIdx = 5
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP	    [XXX]C* <- line 11	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6	<- cursorPos = 4	linePos = 6		lineIdx = 5
+	* TARGET TEMP			[XXX]C* <- line 7
+	* DWELL TIME	        [XXX]S* <- line 8
+	* HEAT RATE		      [X.X]C/S* <- line 9
+	*REFLOW						  * <- line 10
+	* SOLDER MELT TEMP 	   [XXX]C * <- line 11	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*PREHEAT					  * <- line 1
+	* START TEMP	        [XXX]C* <- line 2	
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4	<- cursorPos = 3	linePos = 4		lineIdx = 1
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP			[XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*PREHEAT					  * <- line 1
+	* START TEMP	        [XXX]C* <- line 2	<- cursorPos = 1	linePos = 2		lineIdx = 1
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE		      [X.X]C/S* <- line 4	
+	*SOAK						  * <- line 5
+	* START TEMP	   	    [XXX]C* <- line 6
+	* TARGET TEMP			[XXX]C* <- line 7
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+Wraping back to end -
+
+	*******************************
+	*      EDIT PARAMETERS		  * <- line 0
+	*COOLDOWN					  *	<- line 17
+	* COOLDOWN RATE 	  [X.X]C/S*	<- line 18
+	* END TEMP			    [XXX]C* <- line 19	<- cursorPos = 13	linePos = 19	lineIdx = 17
+	*PREHEAT					  * <- line 1
+	* START TEMP         	[XXX]C* <- line 2	
+	* DWELL TIME	        [XXX]S* <- line 3
+	* HEAT RATE			  [X.X]C/S* <- line 4	
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+-end -  Vertical Scrolling Previous (Up)
+
+
+*****************************************************
+*  Alternate Display by Phase Pages  				*
+*****************************************************
+		
+		
+	*******************************
+	*     EDIT PARAMETERS     1/4 *
+	*PREHEAT					  *
+	* START TEMP	        [XXX]C* <- CursorPos = 1
+	* DWELL TIME	        [XXX]S* <- CursorPos = 2
+	* HEAT RATE		      [X.X]C/S* <- CursorPos = 3
+	*						      *
+	*							  *
+	* 							  *
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+	*******************************
+	*      EDIT PARAMETERS    2/4 *
+	*SOAK						  *
+	* START TEMP	   	    [XXX]C* <- CursorPos = 4
+	* TARGET TEMP			[XXX]C* <- CursorPos = 5
+	* DWELL TIME	        [XXX]S* <- CursorPos = 6
+	* HEAT RATE		      [X.X]C/S* <- CursorPos = 7
+	*							  *
+	* 							  *
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+	*******************************
+	*      EDIT PARAMETERS	  3/4 *
+	*REFLOW						  *
+	* SOLDER MELT TEMP   	[XXX]C* <- CursorPos = 8
+	* SOLDER MELT OVERSHOOT 	  *
+	*   DELTA	             [XX]C* <- CursorPos = 9
+	* HEAT RATE		      [X.X]C/S* <- CursorPos = 10
+	* DWELL TIME ABOVE		 	  *
+	*   MELT TEMP	        [XXX]S* <- CursorPos = 11 
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+	*******************************
+	*      EDIT PARAMETERS	  4/4 *
+	*COOLDOWN					  *
+	* COOLDOWN RATE		  [X.X]C/S* <- CursorPos = 12
+	* END TEMP			    [XXX]C* <- CursorPos = 13
+	*							  *
+	*							  *
+	*							  *
+	*							  *
+	*[ < ][ > ][ - ][ + ] S[DONE] *
+	*******************************
+
+
+		
