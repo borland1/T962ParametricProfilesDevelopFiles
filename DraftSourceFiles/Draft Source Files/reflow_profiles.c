@@ -112,22 +112,22 @@ static const profile* profiles[] = {
 const paramMenuStruct paramMenu[] = {  // *************************
         // {formatstr, enum item, min val, max val, multiplier} // *************************
 // Preheat // **************** // except for rates, multipliers alway 1.0f // *************************
-    {"START TEMP     %3.0f `", PREHEAT_START_TEMP, 0, 350, 1.0f}, // *************************
-	{"DWELL TIME   %3.0f S", PREHEAT_START_TEMP_DWELL_TIME, 0, 480, 1.0f}, // *************************
-	{"HEAT RATE  %1.1f `/S", PREHEAT_HEAT_RATE, 0, 25, 0.1f}, // *************************
+    {"START TEMP     %3.0f`", PREHEAT_START_TEMP, 0, 350, 1.0f}, // *************************
+	{"DWELL TIME   %3.0fS", PREHEAT_START_TEMP_DWELL_TIME, 0, 480, 1.0f}, // *************************
+	{"HEAT RATE  %1.1f`/S", PREHEAT_HEAT_RATE, 0, 25, 0.1f}, // *************************
 // Soak // *************************
-    {"START TEMP     %3.0f `", SOAK_START_TEMP, 0, 350, 1.0f}, // *************************
-	{"TARGET TEMP    %3.0f `", SOAK_END_TARGET_TEMP, 0, 350, 1.0f}, // *************************
-	{"DWELL TIME   %3.0f S", SOAK_DWELL_TIME, 0, 250, 1.0f}, // *************************
-    {"HEAT RATE  %1.1f `/S", SOAK_HEAT_RATE, 0, 25, 0.1f}, // *************************
+    {"START TEMP     %3.0f`", SOAK_START_TEMP, 0, 350, 1.0f}, // *************************
+	{"TARGET TEMP    %3.0f`", SOAK_END_TARGET_TEMP, 0, 350, 1.0f}, // *************************
+	{"DWELL TIME   %3.0fS", SOAK_DWELL_TIME, 0, 250, 1.0f}, // *************************
+    {"HEAT RATE  %1.1f`/S", SOAK_HEAT_RATE, 0, 25, 0.1f}, // *************************
 // Reflow	 // *************************
-    {"SOLDER MELT TEMP %3.0f `", REFLOW_SOLDER_MELT_TEMP, 0, 350, 1.0f}, // *************************
-	{"SOLDER MELT OVERSHOOT\n    DELTA  %2.0f `", REFLOW_OVERSHOOT_MELT_TEMP_DELTA, 0, 250, 1.0f}, // *************************
-	{"HEAT RATE    %1.1f `/S", REFLOW_HEAT_RATE, 0, 25, 0.1f}, // *************************
-	{"DWELL TIME ABOVE\n   MELT TEMP  %3.0f S", REFLOW_DWELL_TIME_ABOVE_MELT_TEMP, 0, 250, 1.0f}, // *************************
+    {"SOLDER MELT TEMP %3.0f`", REFLOW_SOLDER_MELT_TEMP, 0, 350, 1.0f}, // *************************
+	{"SOLDER MELT OVERSHOOT\n    DELTA  %2.0f`", REFLOW_OVERSHOOT_MELT_TEMP_DELTA, 0, 250, 1.0f}, // *************************
+	{"HEAT RATE    %1.1f`/S", REFLOW_HEAT_RATE, 0, 25, 0.1f}, // *************************
+	{"DWELL TIME ABOVE\n   MELT TEMP  %3.0fS", REFLOW_DWELL_TIME_ABOVE_MELT_TEMP, 0, 250, 1.0f}, // *************************
 // Cooldown // *************************
-	{"COOLDOWN RATE  %1.1f `/S", COOLDOWN_RATE, 0, 25, 0.1f},  // *************************
-    {"END TEMP       %3.0f `", COOLDOWN_END_TEMP, 0, 350, 1.0f}, // *************************
+	{"COOLDOWN RATE  %1.1f`/S", COOLDOWN_RATE, 0, 25, 0.1f},  // *************************
+    {"END TEMP       %3.0f`", COOLDOWN_END_TEMP, 0, 350, 1.0f}, // *************************
 }; // *************************
 
 #define NUM_PARAMETER_MENU_ITEMS (sizeof(paramMenu) / sizeof(paramMenu[0])) // *************************
