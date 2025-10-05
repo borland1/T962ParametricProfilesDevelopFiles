@@ -1,0 +1,113 @@
+EEPROM Space Allocation Computations
+
+--- Memory Dump ---
+Notes: 24LC02 I2C EEPROM Memory IC 2048 bit ( 256 bytes )
+EEPROM, Serial Dump at 115,200 baud, using OLIMDX LCP-P2148 development board
+------------------------------------------------------------
+With no user setup configurations or Custom Profiles entered, 
+firmware serial output at bootup to main menu, is as follows:
+-------------------------------------------------------------
+
+T-962-controller open source firmware (no version info)
+
+See https://github.com/UnifiedEngineering/T-962-improvement for more details.
+
+With define# DUMP_EEPROM enabled in eeprom.c file, serial port will
+output EEPROM contents with bootup's EEPROM_Init() initialization.
+
+Reformated EEPROM all bytes to 0xFF, first boot, 
+opened/Exited Setup Menu to save settings in EEPROM, yielded:
+
+EEPROM contents:
+0x00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x10: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x20: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x30: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x40: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x50: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
+0x70: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x90: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xa0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xb0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xc0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xd0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xe0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xf0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+
+This shows that Setup/calibration settings occupy 12 bytes
+of 256 bytes of total capacity. 256 bytes - 12 bytes = 244 bytes
+available for parameter profiles.
+
+Also, the defined NVMAGIC values ( ASCII character J = 0x4a & ASCII character W = 0x57 ) are at
+address 0x62 and 0x63, only at the beginning of the saved
+Settings/calibration dataset. Raw data is per:
+
+             0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
+							 \  \  \  \  \  \  \  \  \  \  \  \__REFLOW_BEEP_DONE
+							  \  \  \  \  \  \  \  \  \  \  \__REFLOW_PROFILE
+							   \  \  \  \  \  \  \  \  \  \__TC_LEFT_GAIN
+								\  \  \  \  \  \  \  \  \__TC_LEFT_OFFSET
+								 \  \  \  \  \  \  \  \__TC_RIGHT_GAIN
+								  \  \  \  \  \  \  \__TC_RIGHT_OFFSET
+                     	           \  \  \  \  \  \__REFLOW_MIN_FAN_SPEED
+									\  \  \  \  \__REFLOW_BAKE_SETPOINT_H
+									 \  \  \  \__REFLOW_BAKE_SETPOINT_L
+									  \  \  \__NVITEM_NUM_ITEMS
+									   \__\__NVMAGIC 
+
+After selecting the Select/Edit menu, edits of CUSTOM#1
+and CUSTOM#2, which added some temps, yielded:
+
+
+EEPROM contents:
+0x00: ff ff 00 05 00 06 00 07 00 00 00 00 00 00 00 00
+0x10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x50: 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 09
+0x60: 00 0a 4a 57 09 0a 06 64 64 64 64 08 00 1e ff ff
+0x70: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0x80: ff ff 01 2c 01 2b 01 2a 01 29 00 00 00 00 00 00
+0x90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0xa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0xb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0xc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0xd0: 00 00 00 00 00 00 00 00 00 00 00 00 01 25 01 26
+0xe0: 01 27 ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+0xf0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+
+Custom #1 profile dataset occupies addr 0x02 - 0x61
+Custom #2 profile dataset occupies addr 0x82 - 0xe1
+
+Order of dataset is in order of time, from 0 sec to 460 sec
+in 10 sec increments.
+
+
+Each Parameter Profile consists of:
+  - name (19 bytes)
+  - 13 parameters 1 byte each (13 bytes)
+
+for total of 32 bytes for each parameter profile.
+
+7 parameter profiles x 32 bytes/parameter profile = 224 bytes total 
+
+224 bytes requirement is within available 244 bytes.
+  
+Parameter Profile assignment addresses:
+
+addr - addr   item description
+------------------------------------
+0x00 - 0x01   - 2 bytes unused
+0x03 - 0x21   profile 1
+0x22 - 0x42   profile 2
+0x42 - 0x62   profile 3
+0x62 - 0x6d   setup/calibration data
+0x6e - 0x6f   - 2 bytes unused
+0x70 - 0x8f   profile 4
+0x90 - 0xaf   profile 5
+0xb0 - 0xcf   profile 6
+0xd0 - 0xef   profile 7
+0xf0 - 0xff   - 16 bytes unused
