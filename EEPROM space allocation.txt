@@ -19,6 +19,7 @@ Reformated EEPROM all bytes to 0xFF, first boot,
 opened/Exited Setup Menu to save settings in EEPROM, yielded:
 
 EEPROM contents:
+	  00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
 0x00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 0x10: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 0x20: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
@@ -44,6 +45,7 @@ Also, the defined NVMAGIC values ( ASCII character J = 0x4a & ASCII character W 
 address 0x62 and 0x63, only at the beginning of the saved
 Settings/calibration dataset. Raw data is per:
 
+					 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
                0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
 							 \  \  \  \  \  \  \  \  \  \  \  \__REFLOW_BEEP_DONE
 							  \  \  \  \  \  \  \  \  \  \  \__REFLOW_PROFILE
@@ -62,6 +64,7 @@ and CUSTOM#2, which added some temps, yielded:
 
 
 EEPROM contents:
+	  00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
 0x00: ff ff 00 05 00 06 00 07 00 00 00 00 00 00 00 00
 0x10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 0x20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -112,4 +115,5 @@ addr - addr   item description
 0xd0 - 0xef   profile 7
 
 0xf0 - 0xff   - 16 bytes unused
+
 
