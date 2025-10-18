@@ -44,7 +44,7 @@ Also, the defined NVMAGIC values ( ASCII character J = 0x4a & ASCII character W 
 address 0x62 and 0x63, only at the beginning of the saved
 Settings/calibration dataset. Raw data is per:
 
-             0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
+               0x60: ff ff 4a 57 09 0a 00 64 64 64 64 08 00 1e ff ff
 							 \  \  \  \  \  \  \  \  \  \  \  \__REFLOW_BEEP_DONE
 							  \  \  \  \  \  \  \  \  \  \  \__REFLOW_PROFILE
 							   \  \  \  \  \  \  \  \  \  \__TC_LEFT_GAIN
@@ -112,3 +112,4 @@ addr - addr   item description
 0xd0 - 0xef   profile 7
 
 0xf0 - 0xff   - 16 bytes unused
+
